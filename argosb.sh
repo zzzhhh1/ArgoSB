@@ -86,13 +86,13 @@ status_cmd="systemctl status sing-box"
 status_pattern="active"
 fi
 if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
-echo "ArgoSB已在运行中" && exit
+echo "ArgoSB脚本已在运行中" && exit
 elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
-echo "ArgoSB已安装，未启动，请卸载重装" && exit
+echo "ArgoSB脚本已安装，但未启动，请卸载重装" && exit
 else
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
-echo "ArgoSB未安装，开始安装" && sleep 2
+echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
 fi
 
