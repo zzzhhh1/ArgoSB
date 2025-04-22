@@ -289,7 +289,7 @@ echo "2095端口的vmess-ws-argo节点，默认优选IPV6：[2400:cb00:2049::]"
 sed -n '13p' /etc/s-box-ag/jh.txt
 echo
 echo "---------------------------------------------------------"
-echo "Argo节点13个端口及不死IP全覆盖：7个关tls 80系端口节点、6个开tls 443系端口节点" && sleep 3
+echo "聚合分享Argo节点13个端口及不死IP全覆盖：7个关tls 80系端口节点、6个开tls 443系端口节点" && sleep 3
 echo
 echo $baseurl
 echo
