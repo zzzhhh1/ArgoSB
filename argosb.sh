@@ -37,8 +37,11 @@ aarch64) cpu=arm64;;
 x86_64) cpu=amd64;;
 *) red "目前脚本不支持$(uname -m)架构" && exit;;
 esac
+hostname=$hostname
 export UUID=${uuid:-''}
 export port_vm_ws=${vmpt:-''}
+export ARGO_DOMAIN=${agn:-''}   
+export ARGO_AUTH=${agk:-''} 
 
 del(){
 if [[ -n $(ps -e | grep cloudflared) ]]; then
@@ -145,9 +148,9 @@ fi
 if [ -z $UUID ]; then
 UUID=$(/etc/s-box-ag/sing-box generate uuid)
 fi
-echo "当前指定的vmess主协议端口：$port_vm_ws"
+echo "当前vmess主协议端口：$port_vm_ws"
 echo
-echo "当前指定的uuid密码：$UUID"
+echo "当前uuid密码：$UUID"
 sleep 3
 
 cat > /etc/s-box-ag/sb.json <<EOF
@@ -228,19 +231,36 @@ argocore=$(curl -Ls https://data.jsdelivr.com/v1/package/gh/cloudflare/cloudflar
 echo "下载cloudflared-argo最新正式版内核：$argocore"
 curl -L -o /etc/s-box-ag/cloudflared -# --retry 2 https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$cpu
 chmod +x /etc/s-box-ag/cloudflared
+
+if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
+name='固定'
+/etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH} >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbargopid.log
+echo ${ARGO_DOMAIN} > /etc/s-box-ag/sbargoym.log
+echo ${ARGO_AUTH} > /etc/s-box-ag/sbargotoken.log
+else
+name='临时'
 /etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 &
 echo "$!" > /etc/s-box-ag/sbargopid.log
-echo "申请Argo临时隧道中……请稍等"
+fi
+echo "申请Argo$name隧道中……请稍等"
 sleep 8
-argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
-if [[ -n $argodomain ]]; then
-echo "Argo临时隧道申请成功，域名为：$argodomain"
+if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
+argodomain=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
 else
-echo "Argo临时隧道申请失败，请稍后再试" && exit
+argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
+fi
+if [[ -n $argodomain ]]; then
+echo "Argo$name隧道申请成功，域名为：$argodomain"
+else
+echo "Argo$name隧道申请失败，请稍后再试" && exit
 fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
+if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
+echo '@reboot /bin/bash -c "/etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token $(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null) >/dev/null 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
+else
 echo '@reboot /bin/bash -c "/etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
+fi
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 
