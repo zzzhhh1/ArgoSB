@@ -37,7 +37,7 @@ aarch64) cpu=arm64;;
 x86_64) cpu=amd64;;
 *) red "目前脚本不支持$(uname -m)架构" && exit;;
 esac
-hostname=hostname
+hostname=$(hostname)
 export UUID=${uuid:-''}
 export port_vm_ws=${vmpt:-''}
 export ARGO_DOMAIN=${agn:-''}   
