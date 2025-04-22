@@ -66,11 +66,17 @@ exit
 }
 
 agn(){
+argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
+if [ -z $argoname ]; then
 argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
 if [ -z $argodomain ]; then
 echo "当前argo临时域名未生成，建议卸载重装" 
 else
-echo "当前argo最新临时域名：$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')"
+echo "当前argo最新临时域名：$argodomain"
+fi
+else
+echo "当前argo固定域名：$argoname"
+echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
 fi
 exit
 }
@@ -148,9 +154,11 @@ fi
 if [ -z $UUID ]; then
 UUID=$(/etc/s-box-ag/sing-box generate uuid)
 fi
+echo
 echo "当前vmess主协议端口：$port_vm_ws"
 echo
 echo "当前uuid密码：$UUID"
+echo
 sleep 3
 
 cat > /etc/s-box-ag/sb.json <<EOF
@@ -231,7 +239,6 @@ argocore=$(curl -Ls https://data.jsdelivr.com/v1/package/gh/cloudflare/cloudflar
 echo "下载cloudflared-argo最新正式版内核：$argocore"
 curl -L -o /etc/s-box-ag/cloudflared -# --retry 2 https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$cpu
 chmod +x /etc/s-box-ag/cloudflared
-
 if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
 name='固定'
 /etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH} >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbargopid.log
@@ -291,7 +298,7 @@ echo "$vma_link12" >> /etc/s-box-ag/jh.txt
 vma_link13="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"vmess-ws-argo-$hostname-2095\", \"add\": \"[2400:cb00:2049::]\", \"port\": \"2095\", \"id\": \"$UUID\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$UUID-vm?ed=2048\", \"tls\": \"\"}" | base64 -w0)"
 echo "$vma_link13" >> /etc/s-box-ag/jh.txt
 baseurl=$(base64 -w 0 < /etc/s-box-ag/jh.txt)
-echo "ArgoSB安装完毕"
+echo "ArgoSB脚本安装完毕"
 echo "---------------------------------------------------------"
 echo "---------------------------------------------------------"
 echo "输出配置信息" && sleep 3
