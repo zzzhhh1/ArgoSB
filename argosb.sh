@@ -279,13 +279,13 @@ echo
 echo "443端口的vmess-ws-tls-argo节点，默认优选IPV4：104.16.0.0"
 sed -n '1p' /etc/s-box-ag/jh.txt
 echo
-echo "2096端口的vmess-ws-tls-argo节点，默认优选IPV6：[2606:4700::]"
+echo "2096端口的vmess-ws-tls-argo节点，默认优选IPV6：[2606:4700::]（本地网络支持IPV6才可用）"
 sed -n '6p' /etc/s-box-ag/jh.txt
 echo
 echo "80端口的vmess-ws-argo节点，默认优选IPV4：104.21.0.0"
 sed -n '7p' /etc/s-box-ag/jh.txt
 echo
-echo "2095端口的vmess-ws-argo节点，默认优选IPV6：[2400:cb00:2049::]"
+echo "2095端口的vmess-ws-argo节点，默认优选IPV6：[2400:cb00:2049::]（本地网络支持IPV6才可用）"
 sed -n '13p' /etc/s-box-ag/jh.txt
 echo
 echo "---------------------------------------------------------"
