@@ -1,10 +1,10 @@
-### ArgoSB真一键无交互脚本：最新sing-box内核+最新Cloudflared-Argo内核
+### ArgoSB一键无交互脚本：为IDX Google VPS专门设计，其他VPS也可安装
 
-#### 支持Argo临时隧道、固定隧道，为Google IDX VPS专门设计，其他VPS也可安装
+#### 安装最新sing-box内核+最新Cloudflared-Argo内核，支持Argo临时/固定隧道
 
-#### 脚本仅VMESS协议，输出13个端口节点及对应的优选不死IP全覆盖（80系无TLS+443系开TLS，两个IPV6）
+#### 目前仅输出VMESS协议节点：13个端口节点及对应的优选不死IP全覆盖（80系无TLS+443系开TLS，两个IPV6）
 
- 脚本如下，默认安装为Argo临时隧道
+脚本如下，默认安装为Argo临时隧道（UUID、主协议vmess端口为设变量，为随机生成）
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
@@ -25,19 +25,24 @@ bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.
 ```
 ----------------------------------------------------------
 
-### 可自定义设置：
+### 可自定义设置
 
 1、Argo临时隧道自定义UUID:
 ```
 uuid=你的uuid bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-2、Argo临时隧道自定义主协议vmess端口
+2、Argo临时隧道自定义主协议vmess端口：
 ```
 vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-3、Argo固定隧道 【 脚本前必须要有端口(vmpt)、固定域名(agn)、token(agk)三个变量，uuid可选 】：
+3、Argo临时隧道自定义UUID、主协议vmess端口：
+```
+uuid=你的uuid vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+```
+
+4、Argo固定隧道 【 脚本前必须要有端口(vmpt)、固定域名(agn)、token(agk)三个变量，uuid可选 】：
 ```
 vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
