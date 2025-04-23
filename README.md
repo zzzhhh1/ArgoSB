@@ -12,6 +12,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
+---------------------------------------------------------
 
 查看Argo的固定域名、固定域名的token、临时域名：
 ```
