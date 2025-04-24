@@ -4,7 +4,7 @@ echo "甬哥Github项目  ：github.com/yonggekkk"
 echo "甬哥Blogger博客 ：ygkkk.blogspot.com"
 echo "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
 echo "ArgoSB真一键无交互脚本"
-echo "当前版本：25.4.22 测试beta2版"
+echo "当前版本：25.4.24 测试beta3版"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 export LANG=en_US.UTF-8
 [[ $EUID -ne 0 ]] && yellow "请以root模式运行脚本" && exit
@@ -70,7 +70,7 @@ argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
 if [ -z $argoname ]; then
 argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
 if [ -z $argodomain ]; then
-echo "当前argo临时域名未生成，建议卸载重装" 
+echo "当前argo临时域名未生成，建议卸载重装ArgoSB脚本" 
 else
 echo "当前argo最新临时域名：$argodomain"
 fi
@@ -81,10 +81,21 @@ fi
 exit
 }
 
+list(){
+if [[ -e /etc/s-box-ag/list.txt ]]; then
+cat /etc/s-box-ag/list.txt
+else
+echo "ArgoSB脚本未安装"
+fi
+exit
+}
+
 if [[ "$1" == "del" ]]; then
 del
 elif [[ "$1" == "agn" ]]; then
 agn
+elif [[ "$1" == "list" ]]; then
+list
 fi
 
 if [[ x"${release}" == x"alpine" ]]; then
@@ -298,27 +309,33 @@ echo "$vma_link12" >> /etc/s-box-ag/jh.txt
 vma_link13="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"vmess-ws-argo-$hostname-2095\", \"add\": \"[2400:cb00:2049::]\", \"port\": \"2095\", \"id\": \"$UUID\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$UUID-vm?ed=2048\", \"tls\": \"\"}" | base64 -w0)"
 echo "$vma_link13" >> /etc/s-box-ag/jh.txt
 baseurl=$(base64 -w 0 < /etc/s-box-ag/jh.txt)
-echo "ArgoSB脚本安装完毕"
-echo "---------------------------------------------------------"
-echo "---------------------------------------------------------"
-echo "输出配置信息" && sleep 3
-echo
-echo "443端口的vmess-ws-tls-argo节点，默认优选IPV4：104.16.0.0"
-sed -n '1p' /etc/s-box-ag/jh.txt
-echo
-echo "2096端口的vmess-ws-tls-argo节点，默认优选IPV6：[2606:4700::]（本地网络支持IPV6才可用）"
-sed -n '6p' /etc/s-box-ag/jh.txt
-echo
-echo "80端口的vmess-ws-argo节点，默认优选IPV4：104.21.0.0"
-sed -n '7p' /etc/s-box-ag/jh.txt
-echo
-echo "2095端口的vmess-ws-argo节点，默认优选IPV6：[2400:cb00:2049::]（本地网络支持IPV6才可用）"
-sed -n '13p' /etc/s-box-ag/jh.txt
-echo
-echo "---------------------------------------------------------"
-echo "聚合分享Argo节点13个端口及不死IP全覆盖：7个关tls 80系端口节点、6个开tls 443系端口节点" && sleep 3
-echo
-echo $baseurl
-echo
-echo "---------------------------------------------------------"
-echo
+line1=$(sed -n '1p' /etc/s-box-ag/jh.txt)
+line6=$(sed -n '6p' /etc/s-box-ag/jh.txt)
+line7=$(sed -n '7p' /etc/s-box-ag/jh.txt)
+line13=$(sed -n '13p' /etc/s-box-ag/jh.txt)
+echo "ArgoSB脚本安装完毕" && sleep 2
+cat > /etc/s-box-ag/list.txt <<EOF
+---------------------------------------------------------
+---------------------------------------------------------
+单节点配置输出：
+1、443端口的vmess-ws-tls-argo节点，默认优选IPV4：104.16.0.0
+$line1
+
+2、2096端口的vmess-ws-tls-argo节点，默认优选IPV6：[2606:4700::]（本地网络支持IPV6才可用）
+$line6
+
+3、80端口的vmess-ws-argo节点，默认优选IPV4：104.21.0.0
+$line7
+
+4、2095端口的vmess-ws-argo节点，默认优选IPV6：[2400:cb00:2049::]（本地网络支持IPV6才可用）
+$line13
+
+---------------------------------------------------------
+聚合节点配置输出：
+5、Argo节点13个端口及不死IP全覆盖：7个关tls 80系端口节点、6个开tls 443系端口节点
+
+$baseurl
+
+---------------------------------------------------------
+EOF
+cat /etc/s-box-ag/list.txt
