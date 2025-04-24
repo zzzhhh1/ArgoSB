@@ -108,7 +108,7 @@ fi
 if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
 echo "ArgoSB脚本已在运行中" && exit
 elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
-echo "ArgoSB脚本已安装，但未启动，请卸载重装" && exit
+echo "ArgoSB脚本已安装，但未启动，脚本将卸载……" && del
 else
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
@@ -270,7 +270,7 @@ fi
 if [[ -n $argodomain ]]; then
 echo "Argo$name隧道申请成功，域名为：$argodomain"
 else
-echo "Argo$name隧道申请失败，请稍后再试" && exit
+echo "Argo$name隧道申请失败，请稍后再试" && del
 fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
