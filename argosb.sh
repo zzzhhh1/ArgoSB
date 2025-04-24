@@ -122,7 +122,7 @@ apk add wget curl tar jq tzdata openssl expect git socat iproute2 iptables grep 
 apk add virt-what
 else
 apt update -y
-apt install curl wget tar gzip cron -y
+apt install curl wget tar gzip cron jq -y
 fi
 
 warpcheck(){
