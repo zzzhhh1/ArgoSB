@@ -53,8 +53,16 @@ vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO
 ```
 ----------------------------------------------------------
 
+#### 视频教程：
+[Google IDX VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
+
+更新中……
+
+----------------------------------------------------------
+
 ### 交流平台：[甬哥博客地址](https://ygkkk.blogspot.com)、[甬哥YouTube频道](https://www.youtube.com/@ygkkk)、[甬哥TG电报群组](https://t.me/+jZHc6-A-1QQ5ZGVl)、[甬哥TG电报频道](https://t.me/+DkC9ZZUgEFQzMTZl)
 
+----------------------------------------------------------
 
 ### 感谢你右上角的star🌟
 [![Stargazers over time](https://starchart.cc/yonggekkk/ArgoSB.svg)](https://starchart.cc/yonggekkk/ArgoSB)
