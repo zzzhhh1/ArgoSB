@@ -19,6 +19,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.s
 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) agn
 ```
 
+查看当前节点信息：
+```
+bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list
+```
+
 卸载ArgoSB脚本：
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del
