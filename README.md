@@ -4,7 +4,7 @@
 
 #### 目前仅输出VMESS协议节点：13个端口节点及对应的优选不死IP全覆盖（80系无TLS+443系开TLS，两个IPV6）
 
-脚本如下，默认安装为Argo临时隧道（UUID、主协议vmess端口为设变量，为随机生成）
+脚本如下，默认安装为Argo临时隧道（UUID、主协议vmess端口未设变量时，为随机生成）
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
@@ -25,7 +25,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.
 ```
 ----------------------------------------------------------
 
-### 可自定义设置
+### 可自定义设置相关变量参数
 
 1、Argo临时隧道自定义UUID:
 ```
