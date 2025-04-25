@@ -116,13 +116,17 @@ echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
 fi
 
-if [[ x"${release}" == x"alpine" ]]; then
-apk update
-apk add wget curl tar jq tzdata openssl expect git socat iproute2 iptables grep dcron
-apk add virt-what
-else
+if command -v apt &> /dev/null; then
 apt update -y
 apt install curl wget tar gzip cron jq -y
+elif command -v yum &> /dev/null; then
+yum install -y curl wget jq tar
+elif command -v apk &> /dev/null; then
+apk update -y
+apk add wget curl tar jq tzdata openssl git grep dcron
+else
+echo "不支持当前系统，请手动安装依赖。"
+exit
 fi
 
 warpcheck(){
