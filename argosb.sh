@@ -43,7 +43,7 @@ export port_vm_ws=${vmpt:-''}
 export ARGO_DOMAIN=${agn:-''}   
 export ARGO_AUTH=${agk:-''} 
 
-d(){
+del(){
 if [[ -n $(ps -e | grep cloudflared) ]]; then
 kill -15 $(cat /etc/s-box-ag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
 fi
@@ -64,42 +64,11 @@ rm -rf /etc/s-box-ag
 echo "卸载完成" 
 exit
 }
-
-n(){
-argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
-if [ -z $argoname ]; then
-argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
-if [ -z $argodomain ]; then
-echo "当前argo临时域名未生成，建议卸载重装ArgoSB脚本" 
-else
-echo "当前argo最新临时域名：$argodomain"
-fi
-else
-echo "当前argo固定域名：$argoname"
-echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
-fi
-exit
-}
-
-a(){
-if [[ -e /etc/s-box-ag/list.txt ]]; then
-cat /etc/s-box-ag/list.txt
-else
-echo "ArgoSB脚本未安装"
-fi
-exit
-}
-
-if [[ "$1" == "d" ]]; then
-d
-elif [[ "$1" == "n" ]]; then
-n
-elif [[ "$1" == "a" ]]; then
-a
+if [[ "$1" == "del" ]]; then
+del
 elif [[ "$1" == "up" ]]; then
 up
 fi
-
 up(){
 rm -rf /usr/bin/agsb
 curl -L -o /usr/bin/agsb -# --retry 2 --insecure https://raw.githubusercontent.com/yonggekkk/argosb/beta/argosb.sh
@@ -115,19 +84,33 @@ status_pattern="active"
 fi
 if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -n $(ps -e | grep cloudflared) ]]; then
 echo "ArgoSB脚本已在运行中"
-echo "相关快捷方式如下："
-echo "查看状态自动修复重装：agsb"
-echo "查看域名信息：agsb n"
-echo "查看节点信息：agsb a"
-echo "升级脚本：agsb up"
-echo "卸载脚本：agsb d"
-exit
+argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
+if [ -z $argoname ]; then
+argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
+if [ -z $argodomain ]; then
+echo "当前argo临时域名未生成，建议卸载重装ArgoSB脚本" 
 else
-echo "ArgoSB脚本未启动，现将脚本卸载重新安装……" && d
+echo "当前argo最新临时域名：$argodomain"
+fi
+else
+echo "当前argo固定域名：$argoname"
+echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
+fi
+if [[ -e /etc/s-box-ag/list.txt ]]; then
+cat /etc/s-box-ag/list.txt
+else
+echo "ArgoSB脚本未安装，无法显示节点信息"
+fi
+exit
+elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
+else
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
+else
+echo "ArgoSB脚本未启动，请将脚本卸载(agsb del)，重新安装"
+exit
 fi
 
 if command -v apt &> /dev/null; then
@@ -354,6 +337,10 @@ $line13
 
 $baseurl
 
+相关快捷方式如下：
+显示域名及节点信息：agsb
+升级脚本：agsb up
+卸载脚本：agsb del
 ---------------------------------------------------------
 EOF
 cat /etc/s-box-ag/list.txt
