@@ -82,34 +82,30 @@ else
 status_cmd="systemctl status sing-box"
 status_pattern="active"
 fi
-if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -n $(ps -e | grep cloudflared) ]]; then
+if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e /etc/s-box-ag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
 if [ -z $argoname ]; then
 argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
 if [ -z $argodomain ]; then
-echo "当前argo临时域名未生成，建议卸载重装ArgoSB脚本" 
+echo "当前argo临时域名未生成，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本" 
 else
 echo "当前argo最新临时域名：$argodomain"
+cat /etc/s-box-ag/list.txt
 fi
 else
 echo "当前argo固定域名：$argoname"
 echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
-fi
-if [[ -e /etc/s-box-ag/list.txt ]]; then
 cat /etc/s-box-ag/list.txt
-else
-echo "ArgoSB脚本未安装，无法显示节点信息"
 fi
 exit
 elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
-else
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
 else
-echo "ArgoSB脚本未启动，请将脚本卸载(agsb del)，重新安装"
+echo "ArgoSB脚本未启动，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
 exit
 fi
 
@@ -271,7 +267,7 @@ fi
 if [[ -n $argodomain ]]; then
 echo "Argo$name隧道申请成功，域名为：$argodomain"
 else
-echo "Argo$name隧道申请失败，请稍后再试" && del
+echo "Argo$name隧道申请失败，请稍后再试" && del && exit
 fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
