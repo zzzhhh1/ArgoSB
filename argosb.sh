@@ -43,7 +43,7 @@ export port_vm_ws=${vmpt:-''}
 export ARGO_DOMAIN=${agn:-''}   
 export ARGO_AUTH=${agk:-''} 
 
-del(){
+d(){
 if [[ -n $(ps -e | grep cloudflared) ]]; then
 kill -15 $(cat /etc/s-box-ag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
 fi
@@ -65,7 +65,7 @@ echo "卸载完成"
 exit
 }
 
-agn(){
+n(){
 argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
 if [ -z $argoname ]; then
 argodomain=$(cat /etc/s-box-ag/argo.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
@@ -81,7 +81,7 @@ fi
 exit
 }
 
-list(){
+a(){
 if [[ -e /etc/s-box-ag/list.txt ]]; then
 cat /etc/s-box-ag/list.txt
 else
@@ -90,13 +90,21 @@ fi
 exit
 }
 
-if [[ "$1" == "del" ]]; then
-del
-elif [[ "$1" == "agn" ]]; then
-agn
-elif [[ "$1" == "list" ]]; then
-list
+if [[ "$1" == "d" ]]; then
+d
+elif [[ "$1" == "n" ]]; then
+n
+elif [[ "$1" == "a" ]]; then
+a
+elif [[ "$1" == "up" ]]; then
+up
 fi
+
+up(){
+rm -rf /usr/bin/agsb
+curl -L -o /usr/bin/agsb -# --retry 2 --insecure https://raw.githubusercontent.com/yonggekkk/argosb/beta/argosb.sh
+chmod +x /usr/bin/agsb
+}
 
 if [[ x"${release}" == x"alpine" ]]; then
 status_cmd="rc-service sing-box status"
@@ -105,11 +113,17 @@ else
 status_cmd="systemctl status sing-box"
 status_pattern="active"
 fi
-if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
-echo "ArgoSB脚本已在运行中" && exit
-elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") && -f '/etc/s-box-ag/sb.json' ]]; then
-echo "ArgoSB脚本已安装，但未启动，脚本将卸载……" && del
+if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -n $(ps -e | grep cloudflared) ]]; then
+echo "ArgoSB脚本已在运行中"
+echo "相关快捷方式如下："
+echo "查看状态自动修复重装：agsb"
+echo "查看域名信息：agsb n"
+echo "查看节点信息：agsb a"
+echo "升级脚本：agsb up"
+echo "卸载脚本：agsb d"
+exit
 else
+echo "ArgoSB脚本未启动，现将脚本卸载重新安装……" && d
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
@@ -285,7 +299,7 @@ echo '@reboot /bin/bash -c "/etc/s-box-ag/cloudflared tunnel --url http://localh
 fi
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
-
+up
 vmatls_link1="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"vmess-ws-tls-argo-$hostname-443\", \"add\": \"104.16.0.0\", \"port\": \"443\", \"id\": \"$UUID\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$UUID-vm?ed=2048\", \"tls\": \"tls\", \"sni\": \"$argodomain\", \"alpn\": \"\", \"fp\": \"\"}" | base64 -w0)"
 echo "$vmatls_link1" > /etc/s-box-ag/jh.txt
 vmatls_link2="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"vmess-ws-tls-argo-$hostname-8443\", \"add\": \"104.17.0.0\", \"port\": \"8443\", \"id\": \"$UUID\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$UUID-vm?ed=2048\", \"tls\": \"tls\", \"sni\": \"$argodomain\", \"alpn\": \"\", \"fp\": \"\"}" | base64 -w0)"
