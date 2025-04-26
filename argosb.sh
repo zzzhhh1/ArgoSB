@@ -61,7 +61,6 @@ sed -i '/sbargopid/d' /tmp/crontab.tmp
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 rm -rf /etc/s-box-ag /usr/bin/agsb
-echo "卸载完成" 
 }
 up(){
 rm -rf /usr/bin/agsb
@@ -70,9 +69,11 @@ chmod +x /usr/bin/agsb
 }
 if [[ "$1" == "del" ]]; then
 del
+echo "卸载完成" 
 exit
 elif [[ "$1" == "up" ]]; then
 up
+echo "升级完成" 
 exit
 fi
 
