@@ -68,11 +68,11 @@ curl -L -o /usr/bin/agsb -# --retry 2 --insecure https://raw.githubusercontent.c
 chmod +x /usr/bin/agsb
 }
 if [[ "$1" == "del" ]]; then
-del
+del && sleep 2
 echo "卸载完成" 
 exit
 elif [[ "$1" == "up" ]]; then
-up
+up && sleep 2
 echo "升级完成" 
 exit
 fi
