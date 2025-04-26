@@ -62,18 +62,19 @@ crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 rm -rf /etc/s-box-ag /usr/bin/agsb
 echo "卸载完成" 
-exit
 }
-if [[ "$1" == "del" ]]; then
-del
-elif [[ "$1" == "up" ]]; then
-up
-fi
 up(){
 rm -rf /usr/bin/agsb
 curl -L -o /usr/bin/agsb -# --retry 2 --insecure https://raw.githubusercontent.com/yonggekkk/argosb/beta/argosb.sh
 chmod +x /usr/bin/agsb
 }
+if [[ "$1" == "del" ]]; then
+del
+exit
+elif [[ "$1" == "up" ]]; then
+up
+exit
+fi
 
 if [[ x"${release}" == x"alpine" ]]; then
 status_cmd="rc-service sing-box status"
