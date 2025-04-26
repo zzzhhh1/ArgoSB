@@ -60,7 +60,7 @@ crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
-rm -rf /etc/s-box-ag
+rm -rf /etc/s-box-ag /usr/bin/agsb
 echo "卸载完成" 
 exit
 }
