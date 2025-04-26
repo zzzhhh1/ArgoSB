@@ -14,20 +14,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.s
 ```
 ---------------------------------------------------------
 
-查看Argo的固定域名、固定域名的token、临时域名：
-```
-bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) agn
-```
+### 相关快捷方式：
 
-查看当前节点信息：
-```
-bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list
-```
+1、查看Argo的固定域名、固定域名的token、临时域名、当前节点信息：
+```agsb``` 或者 原完整脚本
 
-卸载ArgoSB脚本：
-```
-bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del
-```
+2、升级ArgoSB脚本：```agsb up``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) up```
+
+3、卸载ArgoSB脚本：```agsb del``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+
 ----------------------------------------------------------
 
 ### 可自定义设置相关变量参数
