@@ -17,11 +17,16 @@ bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.s
 ### 相关快捷方式：
 
 1、查看Argo的固定域名、固定域名的token、临时域名、当前节点信息：
+
 ```agsb``` 或者 原完整脚本
 
-2、升级ArgoSB脚本：```agsb up``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) up```
+2、升级ArgoSB脚本：
 
-3、卸载ArgoSB脚本：```agsb del``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+```agsb up``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) up```
+
+3、卸载ArgoSB脚本：
+
+```agsb del``` 或者 ```bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
 
 ----------------------------------------------------------
 
