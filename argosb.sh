@@ -206,47 +206,12 @@ cat > /etc/s-box-ag/sb.json <<EOF
 }
 EOF
 
-123(){
-if [[ x"${release}" == x"alpine" ]]; then
-echo '#!/sbin/openrc-run
-description="sing-box service"
-command="/etc/s-box-ag/sing-box"
-command_args="run -c /etc/s-box-ag/sb.json"
-command_background=true
-pidfile="/var/run/sing-box.pid"' > /etc/init.d/sing-box
-chmod +x /etc/init.d/sing-box
-rc-update add sing-box default
-rc-service sing-box start
-else
-cat > /etc/systemd/system/sing-box.service <<EOF
-[Unit]
-After=network.target nss-lookup.target
-[Service]
-User=root
-WorkingDirectory=/root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-ExecStart=/etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json
-ExecReload=/bin/kill -HUP \$MAINPID
-Restart=on-failure
-RestartSec=10
-LimitNOFILE=infinity
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl enable sing-box >/dev/null 2>&1
-systemctl start sing-box
-systemctl restart sing-box
-fi
-}
-nohup setsid /etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json 2>&1 & echo "$!" > /etc/s-box-ag/sbpid.log
+nohup setsid /etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbpid.log
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbpid/d' /tmp/crontab.tmp
 echo '@reboot /bin/bash -c "nohup setsid /etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbpid.log"' >> /tmp/crontab.tmp
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
-
 argocore=$(curl -Ls https://data.jsdelivr.com/v1/package/gh/cloudflare/cloudflared | grep -Eo '"[0-9.]+",' | sed -n 1p | tr -d '",')
 echo "下载cloudflared-argo最新正式版内核：$argocore"
 curl -L -o /etc/s-box-ag/cloudflared -# --retry 2 https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$cpu
