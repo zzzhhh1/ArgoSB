@@ -213,6 +213,7 @@ cat > /etc/s-box-ag/sb.json <<EOF
 }
 EOF
 
+123(){
 if [[ x"${release}" == x"alpine" ]]; then
 echo '#!/sbin/openrc-run
 description="sing-box service"
@@ -245,6 +246,8 @@ systemctl enable sing-box >/dev/null 2>&1
 systemctl start sing-box
 systemctl restart sing-box
 fi
+}
+/etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json 2>&1 &
 argocore=$(curl -Ls https://data.jsdelivr.com/v1/package/gh/cloudflare/cloudflared | grep -Eo '"[0-9.]+",' | sed -n 1p | tr -d '",')
 echo "下载cloudflared-argo最新正式版内核：$argocore"
 curl -L -o /etc/s-box-ag/cloudflared -# --retry 2 https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$cpu
