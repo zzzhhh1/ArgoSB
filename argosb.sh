@@ -4,7 +4,7 @@ echo "甬哥Github项目  ：github.com/yonggekkk"
 echo "甬哥Blogger博客 ：ygkkk.blogspot.com"
 echo "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
 echo "ArgoSB真一键无交互脚本"
-echo "当前版本：25.4.26 测试beta4版"
+echo "当前版本：25.4.28 测试beta5版"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 export LANG=en_US.UTF-8
 [[ $EUID -ne 0 ]] && yellow "请以root模式运行脚本" && exit
@@ -44,9 +44,8 @@ export ARGO_DOMAIN=${agn:-''}
 export ARGO_AUTH=${agk:-''} 
 
 del(){
-if [[ -n $(ps -e | grep cloudflared) ]]; then
 kill -15 $(cat /etc/s-box-ag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
-fi
+kill -15 $(cat /etc/s-box-ag/sbpid.log 2>/dev/null) >/dev/null 2>&1
 if [[ x"${release}" == x"alpine" ]]; then
 rc-service sing-box stop
 rc-update del sing-box default
@@ -58,6 +57,7 @@ rm -f /etc/systemd/system/sing-box.service
 fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
+sed -i '/sbpid/d' /tmp/crontab.tmp
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 rm -rf /etc/s-box-ag /usr/bin/agsb
@@ -77,14 +77,7 @@ echo "升级完成"
 exit
 fi
 
-if [[ x"${release}" == x"alpine" ]]; then
-status_cmd="rc-service sing-box status"
-status_pattern="started"
-else
-status_cmd="systemctl status sing-box"
-status_pattern="active"
-fi
-if [[ -n $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e /etc/s-box-ag/list.txt ]]; then
+if [[ -n $(ps -e | grep sing-box) ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e /etc/s-box-ag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
 if [ -z $argoname ]; then
@@ -101,13 +94,13 @@ echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/n
 cat /etc/s-box-ag/list.txt
 fi
 exit
-elif [[ -z $($status_cmd 2>/dev/null | grep -w "$status_pattern") ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
+elif [[ -z $(ps -e | grep sing-box) ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
 else
-echo "ArgoSB脚本未启动，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
+echo "ArgoSB脚本未启动，可能与其他脚本冲突了，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
 exit
 fi
 
@@ -213,50 +206,24 @@ cat > /etc/s-box-ag/sb.json <<EOF
 }
 EOF
 
-if [[ x"${release}" == x"alpine" ]]; then
-echo '#!/sbin/openrc-run
-description="sing-box service"
-command="/etc/s-box-ag/sing-box"
-command_args="run -c /etc/s-box-ag/sb.json"
-command_background=true
-pidfile="/var/run/sing-box.pid"' > /etc/init.d/sing-box
-chmod +x /etc/init.d/sing-box
-rc-update add sing-box default
-rc-service sing-box start
-else
-cat > /etc/systemd/system/sing-box.service <<EOF
-[Unit]
-After=network.target nss-lookup.target
-[Service]
-User=root
-WorkingDirectory=/root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-ExecStart=/etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json
-ExecReload=/bin/kill -HUP \$MAINPID
-Restart=on-failure
-RestartSec=10
-LimitNOFILE=infinity
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl enable sing-box >/dev/null 2>&1
-systemctl start sing-box
-systemctl restart sing-box
-fi
+nohup setsid /etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbpid.log
+crontab -l > /tmp/crontab.tmp
+sed -i '/sbpid/d' /tmp/crontab.tmp
+echo '@reboot /bin/bash -c "nohup setsid /etc/s-box-ag/sing-box run -c /etc/s-box-ag/sb.json 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbpid.log"' >> /tmp/crontab.tmp
+crontab /tmp/crontab.tmp
+rm /tmp/crontab.tmp
 argocore=$(curl -Ls https://data.jsdelivr.com/v1/package/gh/cloudflare/cloudflared | grep -Eo '"[0-9.]+",' | sed -n 1p | tr -d '",')
 echo "下载cloudflared-argo最新正式版内核：$argocore"
 curl -L -o /etc/s-box-ag/cloudflared -# --retry 2 https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$cpu
 chmod +x /etc/s-box-ag/cloudflared
 if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
 name='固定'
-/etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH} >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbargopid.log
+nohup setsid /etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH} >/dev/null 2>&1 & echo "$!" > /etc/s-box-ag/sbargopid.log
 echo ${ARGO_DOMAIN} > /etc/s-box-ag/sbargoym.log
 echo ${ARGO_AUTH} > /etc/s-box-ag/sbargotoken.log
 else
 name='临时'
-/etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 &
+nohup setsid /etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 &
 echo "$!" > /etc/s-box-ag/sbargopid.log
 fi
 echo "申请Argo$name隧道中……请稍等"
@@ -274,9 +241,9 @@ fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
 if [[ -n "${ARGO_DOMAIN}" && -n "${ARGO_AUTH}" ]]; then
-echo '@reboot /bin/bash -c "/etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token $(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null) >/dev/null 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
+echo '@reboot /bin/bash -c "nohup setsid /etc/s-box-ag/cloudflared tunnel --no-autoupdate --edge-ip-version auto --protocol http2 run --token $(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null) >/dev/null 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
 else
-echo '@reboot /bin/bash -c "/etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
+echo '@reboot /bin/bash -c "nohup setsid /etc/s-box-ag/cloudflared tunnel --url http://localhost:$(sed 's://.*::g' /etc/s-box-ag/sb.json | jq -r '.inbounds[0].listen_port') --edge-ip-version auto --no-autoupdate --protocol http2 > /etc/s-box-ag/argo.log 2>&1 & pid=\$! && echo \$pid > /etc/s-box-ag/sbargopid.log"' >> /tmp/crontab.tmp
 fi
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
