@@ -1,4 +1,4 @@
-### ArgoSB一键无交互脚本：为IDX Google VPS专门设计，其他VPS也可安装
+### ArgoSB一键无交互脚本：兼容各种主流VPS
 
 #### 1、安装最新sing-box内核+最新Cloudflared-Argo内核，支持Argo临时/固定隧道
 
