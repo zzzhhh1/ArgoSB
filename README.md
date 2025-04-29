@@ -53,6 +53,7 @@ uuid=你的uuid vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubus
 ```
 vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
+
 ----------------------------------------------------------
 
 #### 视频教程：
@@ -71,3 +72,9 @@ vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO
 ----------------------------------------------------------
 ### 感谢你右上角的star🌟
 [![Stargazers over time](https://starchart.cc/yonggekkk/ArgoSB.svg)](https://starchart.cc/yonggekkk/ArgoSB)
+
+----------------------------------------------------------
+
+### Thanks to VTEXS service provider for its support, this project will continue to be updated and maintained
+
+----------------------------------------------------------
