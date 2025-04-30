@@ -1,4 +1,4 @@
-### ArgoSB一键无交互脚本：兼容各种主流VPS
+### ArgoSB一键无交互脚本：极简、轻便的体验。兼容各种主流VPS
 
 #### 1、安装最新sing-box内核+最新Cloudflared-Argo内核，支持Argo临时/固定隧道
 
@@ -49,14 +49,17 @@ vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yo
 uuid=你的uuid vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-4、Argo固定隧道 【 脚本前必须要有端口(vmpt)、固定域名(agn)、token(agk)三个变量，uuid可选 】：
+#### 4、Argo固定隧道 【 脚本前必须要有端口(vmpt)、固定域名(agn)、token(agk)三个变量，uuid可选 】：
 ```
 vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 ----------------------------------------------------------
 
-#### 视频教程：
+#### 相关教程可参考[甬哥博客](https://ygkkk.blogspot.com/2025/04/clawcloud.html)，视频教程如下：
+
+[Claw.cloud免费VPS搭建代理最终教程：全网最简单 | 两大无交互回车脚本 | 套CDN优选IP | workers反代 | ArgoSB隧道搭建](https://youtu.be/Esofirx8xrE)
+
 [Google IDX VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
 
 更新中……
