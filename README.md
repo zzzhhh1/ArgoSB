@@ -75,6 +75,6 @@ vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO
 
 ----------------------------------------------------------
 
-### Thanks to VTEXS service provider for its support, this project will continue to be updated and maintained
+### Thanks to [VTEXS](https://console.vtexs.com/?affid=1558) for the sponsorship support
 
 ----------------------------------------------------------
