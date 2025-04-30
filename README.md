@@ -34,22 +34,13 @@ bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.s
 
 ### 可自定义设置相关变量参数
 
-1、Argo临时隧道自定义UUID:
-```
-uuid=你的uuid bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
-```
-
-2、Argo临时隧道自定义主协议vmess端口：
-```
-vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
-```
-
-3、Argo临时隧道自定义UUID、主协议vmess端口：
+#### 1、Argo临时隧道：
+#### 脚本前必须要有端口(vmpt)、UUID密码(uuid)两个变量，每次重装后临时域名都不相同
 ```
 uuid=你的uuid vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
-
-#### 4、Argo固定隧道 【 脚本前必须要有端口(vmpt)、固定域名(agn)、token(agk)三个变量，uuid可选 】：
+#### 2、Argo固定隧道：
+#### 脚本前必须要有端口(vmpt)、UUID密码(uuid)、固定域名(agn)、token(agk)四个变量，每次重装后输出节点信息不变
 ```
 vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
