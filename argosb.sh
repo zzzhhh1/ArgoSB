@@ -46,15 +46,6 @@ export ARGO_AUTH=${agk:-''}
 del(){
 kill -15 $(cat /etc/s-box-ag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
 kill -15 $(cat /etc/s-box-ag/sbpid.log 2>/dev/null) >/dev/null 2>&1
-if [[ x"${release}" == x"alpine" ]]; then
-rc-service sing-box stop
-rc-update del sing-box default
-rm /etc/init.d/sing-box -f
-else
-systemctl stop sing-box >/dev/null 2>&1
-systemctl disable sing-box >/dev/null 2>&1
-rm -f /etc/systemd/system/sing-box.service
-fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
 sed -i '/sbpid/d' /tmp/crontab.tmp
