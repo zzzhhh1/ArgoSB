@@ -77,13 +77,12 @@ if [ -z $argodomain ]; then
 echo "当前argo临时域名未生成，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本" 
 else
 echo "当前argo最新临时域名：$argodomain"
-cat /etc/s-box-ag/list.txt
 fi
 else
 echo "当前argo固定域名：$argoname"
 echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
-cat /etc/s-box-ag/list.txt
 fi
+cat /etc/s-box-ag/list.txt
 exit
 elif [[ -z $(ps -e | grep sing-box) ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
 echo "VPS系统：$op"
