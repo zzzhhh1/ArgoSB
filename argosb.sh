@@ -266,10 +266,13 @@ line1=$(sed -n '1p' /etc/s-box-ag/jh.txt)
 line6=$(sed -n '6p' /etc/s-box-ag/jh.txt)
 line7=$(sed -n '7p' /etc/s-box-ag/jh.txt)
 line13=$(sed -n '13p' /etc/s-box-ag/jh.txt)
+vmport=${port_vm_ws}
 echo "ArgoSB脚本安装完毕" && sleep 2
 cat > /etc/s-box-ag/list.txt <<EOF
 ---------------------------------------------------------
 ---------------------------------------------------------
+Vmess主协议端口(Argo固定隧道端口)：$vmport
+
 单节点配置输出：
 1、443端口的vmess-ws-tls-argo节点，默认优选IPV4：104.16.0.0
 $line1
