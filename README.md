@@ -1,6 +1,6 @@
 ## ArgoSB一键无交互脚本
 
-### 1、脚本主打极简、轻便的体验，兼容各种主流VPS、NIX类容器
+### 1、脚本主打极简、轻便的体验，兼容各种主流VPS系统、容器NIX系统
 
 ### 2、自动安装最新sing-box内核+最新Cloudflared-Argo内核，支持Argo临时/固定隧道
 
@@ -18,7 +18,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.
 ```
 ----------------------------------------------------------
 
-NIX容器脚本如下，默认安装为Argo临时隧道（uuid、vmess端口未设变量时，为随机生成）
+容器NIX脚本如下，默认安装为Argo临时隧道（uuid、vmess端口未设变量时，为随机生成）
 
 ```
 nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
@@ -41,7 +41,7 @@ nix=y bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/a
 uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-NIX容器脚本：
+容器NIX脚本：
 ```
 nix=y uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
@@ -54,7 +54,7 @@ nix=y uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.git
 uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-NIX容器脚本：
+容器NIX脚本：
 ```
 nix=y uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
@@ -70,7 +70,7 @@ nix=y uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头�
 
 主流VPS脚本：```agsb``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)```
 
-NIX容器脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)```
+容器NIX脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)```
 
 2、升级ArgoSB脚本：
 
@@ -80,7 +80,7 @@ NIX容器脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yon
 
 主流VPS脚本：```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
 
-NIX容器脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+容器NIX脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
 
 ----------------------------------------------------------
 
