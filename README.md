@@ -47,7 +47,7 @@ nix=y uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.git
 ```
 
 #### 2、Argo固定隧道：
-#### 脚本前必须要有端口(vmpt)、uuid密码(uuid)、固定域名(agn)、token(agk)，每次重装Argo固定隧道一键复活
+#### 脚本前必须要有端口(vmpt)、uuid密码(uuid)、固定域名(agn)、token(agk)，每次重装后固定域名不变，一键复活原Argo固定隧道分享
 
 主流VPS脚本：
 ```
