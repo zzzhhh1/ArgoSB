@@ -11,7 +11,19 @@ export UUID=${uuid:-''}
 export port_vm_ws=${vmpt:-''}
 export ARGO_DOMAIN=${agn:-''}   
 export ARGO_AUTH=${agk:-''} 
-export nix=${nix:-''} 
+export nix=${nix:-''}
+package(){
+echo "检查依赖安装……请稍等"
+if command -v apt &> /dev/null; then
+apt update -y &> /dev/null
+apt install curl wget tar gzip cron jq procps coreutils util-linux -y &> /dev/null
+elif command -v yum &> /dev/null; then
+yum install -y curl wget jq tar procps-ng coreutils util-linux &> /dev/null
+elif command -v apk &> /dev/null; then
+apk update -y &> /dev/null
+apk add wget curl tar jq tzdata openssl git grep procps coreutils util-linux dcron &> /dev/null
+fi
+}
 if [ -z "$nix" ]; then 
 [[ $EUID -ne 0 ]] && echo "请以root模式运行脚本" && exit
 if [[ -f /etc/redhat-release ]]; then
@@ -68,7 +80,7 @@ up && sleep 2
 echo "升级完成" 
 exit
 fi
-
+package
 if [[ -n $(ps -e | grep sing-box) ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e /etc/s-box-ag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
@@ -94,17 +106,6 @@ else
 echo "ArgoSB脚本未启动，可能与其他脚本冲突了，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
 exit
 fi
-
-if command -v apt &> /dev/null; then
-apt update -y
-apt install curl wget tar gzip cron jq -y
-elif command -v yum &> /dev/null; then
-yum install -y curl wget jq tar
-elif command -v apk &> /dev/null; then
-apk update -y
-apk add wget curl tar jq tzdata openssl git grep dcron
-fi
-
 warpcheck(){
 wgcfv6=$(curl -s6m5 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
 wgcfv4=$(curl -s4m5 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
@@ -136,7 +137,7 @@ tar xzf /etc/s-box-ag/sing-box.tar.gz -C /etc/s-box-ag
 mv /etc/s-box-ag/$sbname/sing-box /etc/s-box-ag
 rm -rf /etc/s-box-ag/{sing-box.tar.gz,$sbname}
 else
-echo "下载失败，请检测网络"
+echo "下载失败，请检测网络" && exit
 fi
 
 if [ -z $port_vm_ws ]; then
@@ -319,6 +320,7 @@ del && sleep 2
 echo "卸载完成" 
 exit
 fi
+package
 if [[ -n $(ps -e | grep sing-box) ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e nixag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 cat nixag/list.txt
