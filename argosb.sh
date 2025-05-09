@@ -320,7 +320,6 @@ del && sleep 2
 echo "卸载完成" 
 exit
 fi
-package
 if [[ -n $(ps -e | grep sing-box) ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e nixag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 cat nixag/list.txt
