@@ -1,29 +1,18 @@
 #!/bin/bash
 export LANG=en_US.UTF-8
+export nix=${nix:-''}
+[ -n "$nix" ] && sys='主流VPS-' || sys='容器NIX-'
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
 echo "甬哥Github项目  ：github.com/yonggekkk"
 echo "甬哥Blogger博客 ：ygkkk.blogspot.com"
 echo "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
-echo "ArgoSB真一键无交互脚本"
-echo "当前版本：25.5.8 测试beta6版"
+echo "${sys}ArgoSB真一键无交互脚本"
+echo "当前版本：25.5.9 测试beta6版"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 export UUID=${uuid:-''}
 export port_vm_ws=${vmpt:-''}
 export ARGO_DOMAIN=${agn:-''}   
 export ARGO_AUTH=${agk:-''} 
-export nix=${nix:-''}
-package(){
-echo "检查依赖安装……请稍等"
-if command -v apt &> /dev/null; then
-apt update -y &> /dev/null
-apt install curl wget tar gzip cron jq procps coreutils util-linux -y &> /dev/null
-elif command -v yum &> /dev/null; then
-yum install -y curl wget jq tar procps-ng coreutils util-linux &> /dev/null
-elif command -v apk &> /dev/null; then
-apk update -y &> /dev/null
-apk add wget curl tar jq tzdata openssl git grep procps coreutils util-linux dcron &> /dev/null
-fi
-}
 if [ -z "$nix" ]; then 
 [[ $EUID -ne 0 ]] && echo "请以root模式运行脚本" && exit
 if [[ -f /etc/redhat-release ]]; then
@@ -80,7 +69,6 @@ up && sleep 2
 echo "升级完成" 
 exit
 fi
-package
 if [[ -n $(ps -e | grep sing-box) ]] && [[ -n $(ps -e | grep cloudflared) ]] && [[ -e /etc/s-box-ag/list.txt ]]; then
 echo "ArgoSB脚本已在运行中"
 argoname=$(cat /etc/s-box-ag/sbargoym.log 2>/dev/null)
@@ -98,6 +86,16 @@ fi
 cat /etc/s-box-ag/list.txt
 exit
 elif [[ -z $(ps -e | grep sing-box) ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
+echo "检查依赖安装……请稍等"
+if command -v apt &> /dev/null; then
+apt update -y &> /dev/null
+apt install curl wget tar gzip cron jq procps coreutils util-linux -y &> /dev/null
+elif command -v yum &> /dev/null; then
+yum install -y curl wget jq tar procps-ng coreutils util-linux &> /dev/null
+elif command -v apk &> /dev/null; then
+apk update -y &> /dev/null
+apk add wget curl tar jq tzdata openssl git grep procps coreutils util-linux dcron &> /dev/null
+fi
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
