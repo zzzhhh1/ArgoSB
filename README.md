@@ -87,9 +87,11 @@ nix=y uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头�
 
 #### 相关教程可参考甬哥博客，视频教程如下：
 
-[Claw.cloud免费VPS搭建代理最终教程：全网最简单 | 两大无交互回车脚本 | 套CDN优选IP | workers反代 | ArgoSB隧道搭建](https://youtu.be/Esofirx8xrE)
+[Claw.cloud免费VPS搭建代理最终教程（一）：全网最简单 | 两大无交互回车脚本 | 套CDN优选IP | workers反代 | ArgoSB隧道搭建](https://youtu.be/Esofirx8xrE)
 
-[Google IDX VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
+[IDX Google免费VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
+
+[IDX Google免费VPS代理搭建教程（三）：最新工作区方式搭建Argo免费节点 | 一次回车搞定一切 | Argo临时/固定隧道设置演示](https://youtu.be/0I5eI1KKx08)
 
 更新中……
 
