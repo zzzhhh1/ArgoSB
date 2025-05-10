@@ -495,4 +495,6 @@ cat nixag/list.txt
 sed -i '/yonggekkk/d' ~/.bashrc
 echo "export nix=y uuid=${uuid} vmpt=${port_vm_ws} agn=${ARGO_DOMAIN} agk=${ARGO_AUTH} && bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)" >> ~/.bashrc
 source ~/.bashrc
+echo "已安装被重置后自动启动功能，下回启动时将自动应用原先的参数配置，无需再次安装"
+echo "---------------------------------------------------------"
 fi
