@@ -311,6 +311,8 @@ mkdir -p nixag
 del(){
 kill -15 $(cat nixag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
 kill -15 $(cat nixag/sbpid.log 2>/dev/null) >/dev/null 2>&1
+sed -i '/yonggekkk/d' ~/.bashrc 
+source ~/.bashrc
 rm -rf nixag
 }
 if [[ "$1" == "del" ]]; then
@@ -489,4 +491,8 @@ $line13
 ---------------------------------------------------------
 EOF
 cat nixag/list.txt
+[ -f ~/.bashrc ] || touch ~/.bashrc
+sed -i '/yonggekkk/d' ~/.bashrc
+echo "export nix=y UUID=${uuid} vmpt=${port_vm_ws} agn=${ARGO_DOMAIN} agk=${ARGO_AUTH} && bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)" >> ~/.bashrc
+source ~/.bashrc
 fi
