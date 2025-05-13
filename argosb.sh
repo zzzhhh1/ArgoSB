@@ -357,10 +357,12 @@ echo "当前vmess主协议端口：$port_vm_ws"
 echo
 echo "当前uuid密码：$UUID"
 echo
+if [[ "$hostname" == *firebase* || "$hostname" == *idx* ]]; then
 [ -f ~/.bashrc ] || touch ~/.bashrc
 sed -i '/yonggekkk/d' ~/.bashrc
 echo "export nix=y uuid=${uuid} vmpt=${port_vm_ws} agn=${ARGO_DOMAIN} agk=${ARGO_AUTH} && bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)" >> ~/.bashrc
 source ~/.bashrc
+fi
 sleep 2
 
 cat > nixag/sb.json <<EOF
