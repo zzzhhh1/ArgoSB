@@ -1,80 +1,77 @@
-# 2025.6月！！！脚本即将重大更新！！！
+## ArgoSB一键无交互代理脚本
 
-## ArgoSB一键无交互脚本
+### 1、脚本主打极简、轻便的体验，记忆式变量脚本，一次回车随装随用
 
-### 1、脚本主打极简、轻便的体验
+### 2、使用sing-box主内核+可选Cloudflared-Argo内核
 
-### 2、支持各种主流VPS系统、容器NIX系统
+### 3、支持非root模式，兼容各种能进入ssh的主流VPS系统、容器NIX系统
 
-### 3、自动安装最新sing-box内核+最新Cloudflared-Argo内核，支持Argo临时/固定隧道
+### 4、支持单个或多个代理协议任意组合
 
-### 4、目前仅输出VMESS协议节点：13个端口节点及对应的优选不死IP全覆盖
-
-----------------------------------------------------------
-
-主流VPS脚本如下，默认安装为Argo临时隧道（uuid、vmess端口未设变量时，为随机生成）
-```
-bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
-```
-----------------------------------------------------------
-
-容器NIX脚本如下，默认安装为Argo临时隧道（uuid、vmess端口未设变量时，为随机生成）
-```
-nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
-```
+### 5、目前支持Vless-reality、Vmess-ws、Hy2、Tuic、Argo临时/固定隧道，其他协议增加中
 
 ----------------------------------------------------------
 
-### 可自定义变量参数：
+### 一、自定义变量参数说明：
 
-#### 1、Argo临时隧道：
-#### 脚本前必须要有端口(vmpt)、uuid密码(uuid)，每次重装后临时域名都不相同，需重新复制节点信息
+| 变量意义 | 变量名称| 变量值""设置| 删除变量 | 变量值""留空 | 变量要求 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1、启用vless | vlpt | 端口指定 | 关闭vless | 端口随机 | 必选之一 |
+| 2、启用vmess | vmpt | 端口指定 | 关闭vmess | 端口随机 | 必选之一 |
+| 3、启用hy2 | hypt | 端口指定 | 关闭hy2 | 端口随机 | 必选之一 |
+| 4、启用tuic | tupt | 端口指定 | 关闭tuic | 端口随机 | 必选之一 |
+| 5、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
+| 6、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
+| 7、argo开关 | argo | 填写y | 关闭argo隧道 | 关闭argo隧道 | 可选，填写y时，vmess必须启用变量 |
+| 8、argo固定域名 | agn | 解析在CF上的域名 | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道|
+| 9、argo token | agk | CF获取的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道 |
+| 10、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
 
-主流VPS脚本：
+#### 一键脚本模版：
 ```
-uuid=你的uuid vmpt=可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+vlpt="" vmpt="" hypt="" tupt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+```
+注意：变量值填写在""之间，变量之间空一格
+
+#### 三类组合推荐 (端口随机)：
+
+1：全协议共存+argo临时/固定隧道
+```
+vlpt="" vmpt="" hypt="" tupt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-容器NIX脚本：
+2：仅argo临时隧道，固定隧道需填写域名(agn)与token(agk)
 ```
-nix=y uuid=你的uuid vmpt=可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
-```
-
-#### 2、Argo固定隧道：
-#### 脚本前必须要有端口(vmpt)、uuid密码(uuid)、固定域名(agn)、token(agk)，每次重装后固定域名不变，一键复活原Argo固定隧道分享
-
-主流VPS脚本：
-```
-uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-容器NIX脚本：
+3：单协议 (hy2为例)
 ```
-nix=y uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
-
-
-#### 注：如果服务器支持任意端口，临时隧道端口变量(vmpt)可以不用设置
 
 ---------------------------------------------------------
 
-### 相关快捷方式：
+### 二、相关快捷方式 (首次重连SSH后，agsb快捷方式生效)：
 
-1、查看Argo的固定域名、固定隧道的token、临时域名、当前节点信息：
+#### 1、查看Argo的固定域名、固定隧道的token、临时域名、当前已安装的节点信息：
 
-主流VPS脚本：```agsb``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)```
+```agsb list``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list```
 
-容器NIX脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)```
 
-2、升级ArgoSB脚本：
+#### 2、在线切换IPV4/IPV6节点配置 (双栈VPS专享)：
 
-主流VPS脚本：```agsb up``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) up```
+显示IPV4节点配置：
 
-3、卸载ArgoSB脚本：
+```ip=4 agsb cip```或者```ip=4 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) cip```
 
-主流VPS脚本：```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+显示IPV6节点配置：
 
-容器NIX脚本：```nix=y bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+```ip=6 agsb cip```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) cip```
+
+#### 3、卸载脚本：
+
+```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
 
 ----------------------------------------------------------
 
@@ -86,6 +83,8 @@ nix=y uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的to
 [IDX Google免费VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
 
 [IDX Google免费VPS代理搭建教程（三）：NIX容器最新工作区方式搭建Argo免费节点 | 一次回车搞定一切 | Argo固定隧道一键复活](https://youtu.be/0I5eI1KKx08)
+
+[IDX Google免费VPS代理搭建教程（四）：支持重置后自动启动代理节点功能 | 最简单的保活方法](https://youtu.be/EGrz6Wvevqc)
 
 更新中……
 
@@ -105,4 +104,3 @@ nix=y uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的to
 
 ### Thanks to [VTEXS](https://console.vtexs.com/?affid=1558) for the sponsorship support
 
-----------------------------------------------------------
