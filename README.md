@@ -41,6 +41,9 @@ vlpt="" vmpt="" hypt="" tupt="" argo="y" agn="" agk="" bash <(curl -Ls https://r
 ```
 
 2：仅argo临时隧道，固定隧道需填写域名(agn)与token(agk)
+
+类似无公网的IDX Google VPS容器推荐使用此脚本，方便内网穿透节点
+
 ```
 vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
