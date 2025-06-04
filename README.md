@@ -4,7 +4,7 @@
 
 ### 2、使用sing-box主内核+可选Cloudflared-Argo内核
 
-### 3、支持非root模式，兼容各种能进入ssh的主流VPS系统、容器NIX系统
+### 3、支持非root模式，兼容主流VPS系统与容器NIX系统
 
 ### 4、支持单个或多个代理协议任意组合
 
