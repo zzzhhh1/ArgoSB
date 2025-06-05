@@ -40,7 +40,7 @@ vlpt="" vmpt="" hypt="" tupt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash
 vlpt="" vmpt="" hypt="" tupt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-2：仅argo临时隧道，固定隧道需填写域名(agn)与token(agk)
+2：仅argo临时隧道，固定隧道必须填写端口(vmpt)、域名(agn)、token(agk)
 
 类似无公网的【IDX Google VPS】容器推荐使用此脚本，快速一键内网穿透获取节点
 
