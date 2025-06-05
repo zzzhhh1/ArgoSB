@@ -10,6 +10,8 @@
 
 ### 5、目前支持Vless-reality、Vmess-ws、Hy2、Tuic、Argo临时/固定隧道，其他协议增加中
 
+### 6、如果需要多样的功能，推荐使用VPS专用四合一脚本[sing-box-yg](https://github.com/yonggekkk/sing-box-yg)
+
 ----------------------------------------------------------
 
 ### 一、自定义变量参数说明：
@@ -35,7 +37,7 @@ vlpt="" vmpt="" hypt="" tupt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash
 
 #### 三类组合推荐 (端口随机)：
 
-1：全协议共存+argo临时/固定隧道
+1：全协议共存或者单协议 + Argo临时/固定隧道
 ```
 vlpt="" vmpt="" hypt="" tupt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
