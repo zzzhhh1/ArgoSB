@@ -111,3 +111,5 @@ hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/
 
 ### Thanks to [VTEXS](https://console.vtexs.com/?affid=1558) for the sponsorship support
 
+### [![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
+
