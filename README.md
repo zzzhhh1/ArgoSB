@@ -27,7 +27,7 @@
 | 4、启用tuic | tupt | 端口指定 | 关闭tuic | 端口随机 | 必选之一 |
 | 5、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
 | 6、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
-| 7、argo开关 | argo | 填写y | 关闭argo隧道 | 关闭argo隧道 | 可选，填写y时，vmess必须启用变量 |
+| 7、argo开关 | argo | 填写y | 关闭argo隧道 | 关闭argo隧道 | 可选，填写y时，vmess变量vmpt必须启用 |
 | 8、argo固定域名 | agn | 解析在CF上的域名 | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道|
 | 9、argo token | agk | CF获取的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道 |
 | 10、docker监听端口 | PORT | 端口指定 | 3000 | 3000 | 可选 |
