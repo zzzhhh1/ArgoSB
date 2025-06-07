@@ -5,15 +5,15 @@
 
 ### 2、支持Docker Image镜像部署，公开镜像库：```ygkkk/argosb```
 
-### 2、使用Sing-box主内核+可选Cloudflared-Argo内核
+### 3、使用Sing-box主内核+可选Cloudflared-Argo内核
 
-### 3、支持非root模式，一个脚本兼容主流VPS系统与容器NIX系统
+### 4、支持非root模式，一个脚本兼容主流VPS系统与容器NIX系统
 
-### 4、支持单个或多个代理协议任意组合
+### 5、支持单个或多个代理协议任意组合
 
-### 5、目前支持Vless-reality、Vmess-ws、Hy2、Tuic、Argo临时/固定隧道，其他协议增加中
+### 6、目前支持Vless-reality、Vmess-ws、Hy2、Tuic、Argo临时/固定隧道，其他协议增加中
 
-### 6、如果需要多样的功能，推荐使用VPS专用四合一脚本[sing-box-yg](https://github.com/yonggekkk/sing-box-yg)
+### 7、如果需要多样的功能，推荐使用VPS专用四合一脚本[sing-box-yg](https://github.com/yonggekkk/sing-box-yg)
 
 ----------------------------------------------------------
 
