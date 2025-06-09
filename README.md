@@ -30,9 +30,9 @@
 | 7、argo token | agk | CF获取的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道 |
 | 8、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
 | 9、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
-| 10、docker监听端口 | PORT | 端口指定 | 3000 | 3000 | 可选 |
-| 11、启用vless-ws-tls | DOMAIN | 服务器域名 | 提示写入域名 | 提示写入域名 | 可选，uuid变量存在时才可激活（仅docker部署） |
-| 12、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
+| 10、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
+| 11、【仅docker】监听端口 | PORT | 端口指定 | 3000 | 3000 | 可选 |
+| 12、【仅docker】启用vless-ws-tls | DOMAIN | 服务器域名 | 关闭vless-ws-tls | 关闭vless-ws-tls | 可选，uuid变量必须启用 |
 
 #### 一键脚本模版：
 ```
