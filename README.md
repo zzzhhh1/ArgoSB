@@ -32,15 +32,21 @@
 | 9、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
 | 10、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
 | 11、【仅docker】监听端口 | PORT | 端口指定 | 3000 | 3000 | 可选 |
-| 12、【仅docker】启用vless-ws-tls | DOMAIN | 服务器域名 | 关闭vless-ws-tls | 关闭vless-ws-tls | 可选，uuid变量必须启用 |
+| 12、【仅docker】启用vless-ws-tls | DOMAIN | 服务器域名 | 关闭vless-ws-tls | 关闭vless-ws-tls | 可选，可独立存在，uuid变量必须启用 |
 
-#### 一键脚本模版：
+----------------------------------------------------------
+
+### 二、SSH一键变量脚本模版：
+
+注意：变量值填写在""之间，变量之间空一格
+
 ```
 vlpt="" vmpt="" hypt="" tupt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
-注意：变量值填写在""之间，变量之间空一格
 
-#### 三类组合推荐：
+----------------------------------------------------------
+
+### 三、3类组合推荐：
 
 1：全协议共存或者单协议 + Argo临时/固定隧道
 ```
@@ -55,21 +61,24 @@ vlpt="" vmpt="" hypt="" tupt="" argo="y" agn="" agk="" bash <(curl -Ls https://r
 vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
-3：单协议，主流UPD协议或者TCP协议单独运行 (hy2为例)
+3：单协议，主流UPD协议或者TCP协议单独运行
+
+hy2为例：以下脚本启用hy2变量hypt，其他协议变量参考变量参数说明
+
 ```
 hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 ---------------------------------------------------------
 
-### 二、相关快捷方式 (首次重连SSH后，agsb快捷方式生效)：
+### 四、相关快捷方式 (首次重连SSH后，agsb快捷方式生效)：
 
-#### 1、查看Argo的固定域名、固定隧道的token、临时域名、当前已安装的节点信息：
+ 1、查看Argo的固定域名、固定隧道的token、临时域名、当前已安装的节点信息：
 
 ```agsb list``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list```
 
 
-#### 2、在线切换IPV4/IPV6节点配置 (双栈VPS专享)：
+ 2、在线切换IPV4/IPV6节点配置 (双栈VPS专享)：
 
 显示IPV4节点配置：
 
@@ -79,7 +88,7 @@ hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/
 
 ```ip=6 agsb cip```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) cip```
 
-#### 3、卸载脚本：
+ 3、卸载脚本：
 
 ```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
 
