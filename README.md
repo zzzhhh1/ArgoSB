@@ -1,15 +1,15 @@
 
-## ArgoSB一键无交互代理脚本【当前版本：25.6.5】
+## ArgoSB一键无交互代理脚本【当前版本：25.6.10】
 
-### 1、脚本主打极简、轻便的体验，记忆式变量脚本，一次回车随装随用
+### 1、基于Sing-box主内核 + 可选Cloudflared-Argo内核
 
 ### 2、支持Docker Image镜像部署，公开镜像库：```ygkkk/argosb```
 
-### 3、使用Sing-box主内核+可选Cloudflared-Argo内核
+### 3、SSH脚本主打极简、轻便的体验，记忆式变量脚本，一次回车随装随用
 
-### 4、支持非root模式，一个脚本兼容主流VPS系统与容器NIX系统
+### 4、支持非root模式，SSH脚本兼容主流VPS系统与容器NIX系统
 
-### 5、支持单个或多个代理协议任意组合
+### 5、高自由度，支持单个或多个代理协议任意组合
 
 ### 6、目前支持Vless-reality、Vmess-ws、Hy2、Tuic、Argo临时/固定隧道，其他协议增加中
 
@@ -25,13 +25,14 @@
 | 2、启用vmess | vmpt | 端口指定 | 关闭vmess | 端口随机 | 必选之一 |
 | 3、启用hy2 | hypt | 端口指定 | 关闭hy2 | 端口随机 | 必选之一 |
 | 4、启用tuic | tupt | 端口指定 | 关闭tuic | 端口随机 | 必选之一 |
-| 5、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
-| 6、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
-| 7、argo开关 | argo | 填写y | 关闭argo隧道 | 关闭argo隧道 | 可选，填写y时，vmess变量vmpt必须启用 |
-| 8、argo固定域名 | agn | 解析在CF上的域名 | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道|
-| 9、argo token | agk | CF获取的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道 |
+| 5、argo开关 | argo | 填写y | 关闭argo隧道 | 关闭argo隧道 | 可选，填写y时，vmess变量vmpt必须启用 |
+| 6、argo固定域名 | agn | 解析在CF上的域名 | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道|
+| 7、argo token | agk | CF获取的token | 使用临时隧道 | 使用临时隧道 | 可选，argo填写y才可激活固定/临时隧道 |
+| 8、uuid密码 | uuid | 符合uuid规定格式 | 随机生成 | 随机生成 | 可选 |
+| 9、reality域名 | reym | 符合reality域名规定 | yahoo | yahoo | 可选 |
 | 10、docker监听端口 | PORT | 端口指定 | 3000 | 3000 | 可选 |
-| 11、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
+| 11、启用vless-ws-tls | DOMAIN | 服务器域名 | 提示写入域名 | 提示写入域名 | 可选，uuid变量存在时才可激活（仅docker部署） |
+| 12、切换ipv4或ipv6配置 | ip | 填写4或者6 | 自动识别IP配置 | 自动识别IP配置 | 可选 |
 
 #### 一键脚本模版：
 ```
