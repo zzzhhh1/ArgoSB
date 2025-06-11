@@ -34,6 +34,8 @@
 | 11、【仅docker】监听端口，网页查询 | PORT | 端口指定 | 3000 | 3000 | 可选 |
 | 12、【仅docker】启用vless-ws-tls | DOMAIN | 服务器域名 | 关闭vless-ws-tls | 关闭vless-ws-tls | 可选，vless-ws-tls可独立存在，uuid变量必须启用 |
 
+![5fb8c398f89b77b8ed626f4d0681c5c](https://github.com/user-attachments/assets/eedcb804-cac2-42b5-bafe-3cdfbb06acb7)
+
 ----------------------------------------------------------
 
 ### 二、SSH一键变量脚本模版：
