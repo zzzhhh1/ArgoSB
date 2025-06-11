@@ -36,6 +36,8 @@
 
 ![5fb8c398f89b77b8ed626f4d0681c5c](https://github.com/user-attachments/assets/eedcb804-cac2-42b5-bafe-3cdfbb06acb7)
 
+#### 建议clawcloud部署时，uuid变量都加上，保证重启后uuid也不变
+
 ----------------------------------------------------------
 
 ### 二、SSH一键变量脚本模版：
