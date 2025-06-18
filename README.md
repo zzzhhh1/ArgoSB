@@ -86,11 +86,11 @@ hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/
 
 显示IPV4节点配置：
 
-```ip=4 agsb cip```或者```ip=4 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) cip```
+```ip=4 agsb list```或者```ip=4 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) list```
 
 显示IPV6节点配置：
 
-```ip=6 agsb cip```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) cip```
+```ip=6 agsb list```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosbx.sh) list```
 
  3、卸载脚本：
 
