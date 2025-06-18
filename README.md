@@ -36,7 +36,7 @@
 
 ![fdb76495fab11507148086c94d06453](https://github.com/user-attachments/assets/368cfe37-e215-4149-b6dd-4b295672a965)
 
-#### 建议clawcloud部署时，uuid变量都加上，保证重启后uuid也不变
+#### 提示：clawcloud部署时，uuid变量都加上，保证重启后uuid也不变。在线升级镜像时，点击右上角restart即可在线自动更新镜像
 
 ----------------------------------------------------------
 
