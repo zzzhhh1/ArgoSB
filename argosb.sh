@@ -19,8 +19,8 @@ export ARGO_AUTH=${agk:-''}
 export ipsw=${ip:-''}
 showmode(){
 echo "显示节点信息：agsb或者脚本 list"
-echo "双栈VPS显示IPv4节点配置：ip=4 agsb或者脚本 cip"
-echo "双栈VPS显示IPv6节点配置：ip=6 agsb或者脚本 cip"
+echo "双栈VPS显示IPv4节点配置：ip=4 agsb或者脚本 list"
+echo "双栈VPS显示IPv6节点配置：ip=6 agsb或者脚本 list"
 echo "卸载脚本：agsb或者脚本 del"
 }
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
