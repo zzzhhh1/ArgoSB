@@ -7,7 +7,7 @@
 
 ### 3、SSH脚本主打极简、轻便的体验，支持非root模式，兼容所有主流VPS系统
 
-### 4、支持NIX容器系统，特别推荐Google-IDX、Clawcloud爪云使用
+### 4、支持NIX容器系统，特别推荐IDX-google、Clawcloud爪云类的服务器
 
 ### 5、高自由度，支持单个或多个代理协议任意组合
 
