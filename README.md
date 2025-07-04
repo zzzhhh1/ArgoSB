@@ -1,4 +1,4 @@
-## ArgoSB一键无交互代理脚本【当前版本：25.7.4】
+## ArgoSB一键无交互代理脚本【当前版本：V25.7.4】
 
 #### 1、基于Sing-box + Xray + Cloudflared-Argo 三内核自动分配
 
