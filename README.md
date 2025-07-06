@@ -93,7 +93,7 @@ hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/
 
 ---------------------------------------------------------
 
-### 四、相关快捷方式 (首次重连SSH后，agsb快捷方式生效)：
+### 四、快捷方式 (首次安装成功后需重连SSH，agsb快捷方式才可生效)：
 
  1、查看Argo的固定域名、固定隧道的token、临时域名、当前已安装的节点信息：
 
