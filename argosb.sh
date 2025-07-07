@@ -28,9 +28,8 @@ echo "双栈VPS显示IPv6节点配置：ip=6 agsb或者脚本 list"
 echo "卸载脚本：agsb或者脚本 del"
 }
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "甬哥Github项目 ：github.com/yonggekkk"
-echo "甬哥Blogger博客 ：ygkkk.blogspot.com"
-echo "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
+echo "Blogger博客 ：ygkkk.blogspot.com"
+echo "YouTube频道 ：www.youtube.com/@ygkkk"
 echo "ArgoSB一键无交互极简脚本【Sing-box + Xray + Argo三内核合一】"
 echo "当前版本：V25.7.4"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -62,7 +61,7 @@ installxray(){
 echo
 echo "=========启用xray内核========="
 if [ ! -e "$HOME/agsb/xray" ]; then
-curl -Lo "$HOME/agsb/xray" -# --retry 2 https://github.com/yonggekkk/ArgoSB/releases/download/argosbx/xray-$cpu
+curl -Lo "$HOME/agsb/xray" -# --retry 2 https://github.com/zzzhhh1/ArgoSB/releases/download/argosbx/xray-$cpu
 chmod +x "$HOME/agsb/xray"
 sbcore=$("$HOME/agsb/xray" version 2>/dev/null | awk '/^Xray/{print $2}')
 echo "已安装Xray正式版内核：$sbcore"
@@ -197,7 +196,7 @@ installsb(){
 echo
 echo "=========启用Sing-box内核========="
 if [ ! -e "$HOME/agsb/sing-box" ]; then
-curl -Lo "$HOME/agsb/sing-box" -# --retry 2 https://github.com/yonggekkk/ArgoSB/releases/download/argosbx/sing-box-$cpu
+curl -Lo "$HOME/agsb/sing-box" -# --retry 2 https://github.com/zzzhhh1/ArgoSB/releases/download/argosbx/sing-box-$cpu
 chmod +x "$HOME/agsb/sing-box"
 sbcore=$("$HOME/agsb/sing-box" version 2>/dev/null | awk '/version/{print $NF}')
 echo "已安装Sing-box正式版内核：$sbcore"
@@ -215,8 +214,8 @@ insuuid
 command -v openssl >/dev/null 2>&1 && openssl ecparam -genkey -name prime256v1 -out "$HOME/agsb/private.key" >/dev/null 2>&1
 command -v openssl >/dev/null 2>&1 && openssl req -new -x509 -days 36500 -key "$HOME/agsb/private.key" -out "$HOME/agsb/cert.pem" -subj "/CN=www.bing.com" >/dev/null 2>&1
 if [ ! -f "$HOME/agsb/private.key" ]; then
-curl -Lso "$HOME/agsb/private.key" https://github.com/yonggekkk/ArgoSB/releases/download/argosbx/private.key
-curl -Lso "$HOME/agsb/cert.pem" https://github.com/yonggekkk/ArgoSB/releases/download/argosbx/cert.pem
+curl -Lso "$HOME/agsb/private.key" https://github.com/zzzhhh1/ArgoSB/releases/download/argosbx/private.key
+curl -Lso "$HOME/agsb/cert.pem" https://github.com/zzzhhh1/ArgoSB/releases/download/argosbx/cert.pem
 fi
 if [ -n "$hyp" ]; then
 hyp=hypt
@@ -464,7 +463,7 @@ echo "if ! find /proc/*/exe -type l 2>/dev/null | grep -E '/proc/[0-9]+/exe' | x
 COMMAND="agsb"
 SCRIPT_PATH="$HOME/bin/$COMMAND"
 mkdir -p "$HOME/bin"
-curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh > "$SCRIPT_PATH"
+curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 sed -i '/export PATH="\$HOME\/bin:\$PATH"/d' ~/.bashrc
 echo 'export PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
