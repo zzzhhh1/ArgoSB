@@ -60,7 +60,7 @@
 
 ### 二、SSH一键变量脚本模版：
 
-注意：变量值填写在""之间，变量之间空一格
+注意：变量值填写在""之间，变量之间空一格，不用的变量可以删除
 
 ```
 vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
