@@ -63,7 +63,7 @@
 注意：变量值填写在""之间，变量之间空一格，不用的变量可以删除
 
 ```
-vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" uuid="" reym="" argo="" agn="" agk="" ip="" bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh)
 ```
 
 ----------------------------------------------------------
@@ -72,7 +72,7 @@ vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" uuid="" reym="" argo="" agn="" a
 
 1：全协议共存或者单协议 + Argo临时/固定隧道
 ```
-vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh)
 ```
 
 2：仅argo临时隧道，固定隧道必须填写端口(vmpt)、域名(agn)、token(agk)
@@ -80,7 +80,7 @@ vlpt="" vmpt="" hypt="" tupt="" xhpt="" anpt="" argo="y" agn="" agk="" bash <(cu
 类似无公网的IDX-Google-VPS容器推荐使用此脚本，快速一键内网穿透获取节点
 
 ```
-vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh)
 ```
 
 3：单协议，主流UPD协议或者TCP协议单独运行
@@ -88,7 +88,7 @@ vmpt="" argo="y" agn="" agk="" bash <(curl -Ls https://raw.githubusercontent.com
 hy2为例：以下脚本启用hy2变量hypt，其他协议变量参考变量参数说明
 
 ```
-hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+hypt="" bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh)
 ```
 
 ---------------------------------------------------------
@@ -97,49 +97,27 @@ hypt="" bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/
 
  1、查看Argo的固定域名、固定隧道的token、临时域名、当前已安装的节点信息：
 
-```agsb list``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list```
+```agsb list``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh) list```
 
 
  2、在线切换IPV4/IPV6节点配置 (双栈VPS专享)：
 
 显示IPV4节点配置：
 
-```ip=4 agsb list```或者```ip=4 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list```
+```ip=4 agsb list```或者```ip=4 bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh) list```
 
 显示IPV6节点配置：
 
-```ip=6 agsb list```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) list```
+```ip=6 agsb list```或者```ip=6 bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh) list```
 
  3、卸载脚本：
 
-```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh) del```
+```agsb del``` 或者 ```bash <(curl -Ls https://raw.githubusercontent.com/zzzhhh1/argosb/main/argosb.sh) del```
 
 ----------------------------------------------------------
 
 
-#### 相关教程可参考甬哥博客，视频教程如下：
 
-最新推荐：[Claw.cloud免费VPS搭建代理最终教程（五）：ArgoSB脚本docker镜像更新支持AnyTLS、Xhttp-Reality](https://youtu.be/-mhZIhHRyno)
-
-[Claw.cloud免费VPS搭建代理最终教程（四）：最低仅1美分，4套价格+7组协议的套餐组合任你选；查看节点、重启升级、更换IP、更改配置的操作说明](https://youtu.be/xOQV_E1-C84)
-
-[Claw.cloud免费VPS搭建代理最终教程（三）：ArgoSB全能docker镜像发布，支持网页实时更新节点；TCP/UDP直连协议设置客户端"CDN"免墙域名](https://youtu.be/JEXyj9UoMzU)
-
-[Claw.cloud免费VPS搭建代理最终教程（二）：最低仅需2美分；支持Argo | Reality | Vmess | Hysteria2 | Tuic代理协议任意组合](https://youtu.be/NnuMgnJqon8)
-
-[Claw.cloud免费VPS搭建代理最终教程（一）：全网最简单 | 两大无交互回车脚本 | 套CDN优选IP | workers反代 | ArgoSB隧道搭建](https://youtu.be/Esofirx8xrE)
-
-[IDX Google免费VPS代理搭建教程（二）：ArgoSB一键代理脚本发布 | 一次回车搞定一切 | 懒人小白最强Argo代理节点脚本](https://youtu.be/OoXJ_jxoEyY)
-
-[IDX Google免费VPS代理搭建教程（三）：NIX容器最新工作区方式搭建Argo免费节点 | 一次回车搞定一切 | Argo固定隧道一键复活](https://youtu.be/0I5eI1KKx08)
-
-[IDX Google免费VPS代理搭建教程（四）：支持重置后自动启动代理节点功能 | 最简单的保活方法](https://youtu.be/EGrz6Wvevqc)
-
-更新中……
-
-----------------------------------------------------------
-
-### 交流平台：[甬哥博客地址](https://ygkkk.blogspot.com)、[甬哥YouTube频道](https://www.youtube.com/@ygkkk)、[甬哥TG电报群组](https://t.me/+jZHc6-A-1QQ5ZGVl)、[甬哥TG电报频道](https://t.me/+DkC9ZZUgEFQzMTZl)
 
 ----------------------------------------------------------
 ### 感谢支持！微信打赏甬哥侃侃侃ygkkk
